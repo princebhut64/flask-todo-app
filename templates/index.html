@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+    <div class="container my-3">
+        <form action="/" , method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">Todo Title</label>
+                <input type="text" class="form-control" name='title' id="title" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="desc" class="form-label">Todo Desc</label>
+                <input type="text" class="form-control" name='desc' id="desc">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="container my-3">
+        {% if alltodo|length == 0 %}
+        no records found please add records
+
+        {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sno</th>
+                    <th scope="col">Todo's Title</th>
+                    <th scope="col">Todo's Description</th>
+                    <th scope="col">Todo's Created Time</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in alltodo %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{todo.title}}</td>
+                    <td>{{todo.description}}</td>
+                    <td>{{todo.date_created}}</td>
+                    <td><a href='/edit/{{todo.sno}}' type="button" class="btn btn-dark btn-sm mx-2">Edit</a>
+                        <a href='/delete/{{todo.sno}}' type="button" class="btn btn-dark btn-sm mx-2">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        {% endfor %}
+        {% endif %}
+    </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+{% endblock body %}
